@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+# Halt on error.
+set -euo pipefail
+
+source other/bin/common
+
+check_all_env_vars_are_set ALEMBIC_TARGET_ID DATABASE DB_HOST DB_PASS DB_USER ROOT_DIR
+
+set -x
+python3 -m alembic -x "db=${DATABASE}" --config ./alembic.ini upgrade -- "${ALEMBIC_TARGET_ID}"
+set +x
+
+# vim: set filetype=sh fileformat=unix nowrap:

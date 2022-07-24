@@ -52,4 +52,40 @@ docker_up:
 docker_local_database_connect:
 	DOCKER_CMD='env PGPASSWORD=$(POSTGRES_PASSWORD) psql --host $(POSTGRES_HOST) --username $(POSTGRES_USER) $(POSTGRES_DB)' make docker_run
 
+# Alembic. --- {{{
+
+# `analytics_database_schemas:2396f2b:makefile:56`:
+test_downgrade_upgrade:
+	make docker_up
+	sleep 5s
+	DOCKER_CMD='env DB_USER=alembic_user bash -xv ./other/test/test_upgrade_then_downgrade.sh' make run
+	make down
+
+alembic_autogenerate_upgrade:
+	$(call ensure_env_var_is_set,DB_USER)
+	$(call ensure_env_var_is_set,DB_PASS)
+	$(call ensure_env_var_is_set,DB_HOST)
+	$(call ensure_env_var_is_set,DATABASE)
+	$(call ensure_env_var_is_set,ALEMBIC_MESSAGE)
+	DOCKER_CMD='./other/bin/alembic_auto_generate' make run
+	make format
+
+alembic_upgrade:
+	$(call ensure_env_var_is_set,DB_USER)
+	$(call ensure_env_var_is_set,DB_PASS)
+	$(call ensure_env_var_is_set,DB_HOST)
+	$(call ensure_env_var_is_set,DATABASE)
+	$(call ensure_env_var_is_set,ALEMBIC_TARGET_ID)
+	DOCKER_CMD='./other/bin/alembic_upgrade' make run
+
+alembic_downgrade:
+	$(call ensure_env_var_is_set,DB_USER)
+	$(call ensure_env_var_is_set,DB_PASS)
+	$(call ensure_env_var_is_set,DB_HOST)
+	$(call ensure_env_var_is_set,DATABASE)
+	$(call ensure_env_var_is_set,ALEMBIC_TARGET_ID)
+	DOCKER_CMD='./other/bin/alembic_downgrade' make run
+
+#  --- }}}
+
 #  --- }}}
