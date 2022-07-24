@@ -24,11 +24,15 @@ services:
             - fmv1992_backup_system_postgres
         stdin_open: true # docker run -i
         tty: true        # docker run -t
-#       volumes:
-#           - type: bind
-#             source: "${FINANCIAL_DATA}"
-#             target: "/home/user/${PROJECT}/mount_points/input"
-#             read_only: true
+        volumes:
+            - type: bind
+              source: "${ROOT_DIR}/requirements.txt"
+              target: "/home/ubuntu/${PROJECT}/requirements.txt"
+              read_only: false
+            - type: bind
+              source: "${ROOT_DIR}/requirements_all.txt"
+              target: "/home/ubuntu/${PROJECT}/requirements_all.txt"
+              read_only: false
         entrypoint: ""
         command: ""
 

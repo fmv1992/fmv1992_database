@@ -1,1 +1,2 @@
-alembic==x
+alembic==1.8.1
+black==22.6.0
