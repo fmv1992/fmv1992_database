@@ -5,6 +5,8 @@ set -euo pipefail
 
 source other/bin/common
 
+cd ./code/alembic/
+
 check_all_env_vars_are_set ALEMBIC_TARGET_ID POSTGRES_DB POSTGRES_HOST POSTGRES_PASSWORD POSTGRES_USER
 
 set -x
