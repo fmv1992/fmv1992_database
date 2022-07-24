@@ -5,10 +5,10 @@ set -euo pipefail
 
 source other/bin/common
 
-check_all_env_vars_are_set ALEMBIC_TARGET_ID DATABASE DB_HOST DB_PASS DB_USER ROOT_DIR
+check_all_env_vars_are_set ALEMBIC_TARGET_ID POSTGRES_DB POSTGRES_HOST POSTGRES_PASSWORD POSTGRES_USER
 
 set -x
-python3 -m alembic -x "db=${DATABASE}" --config ./alembic.ini downgrade -- "${ALEMBIC_TARGET_ID}"
+python3 -m alembic --config ./alembic.ini downgrade -- "${ALEMBIC_TARGET_ID}"
 set +x
 
 # vim: set filetype=sh fileformat=unix nowrap:

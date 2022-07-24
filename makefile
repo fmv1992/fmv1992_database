@@ -17,6 +17,10 @@ export POSTGRES_USER := fmv1992_backup_system_user
 
 #  --- }}}
 
+define ensure_env_var_is_set
+    @printenv $(1) >/dev/null 2>&1 || { echo 'Please define the `$(1)` env var.' >/dev/stderr && exit 1 ; }
+endef
+
 all: format test
 
 test: validate_docker_compose
@@ -58,33 +62,33 @@ docker_local_database_connect:
 test_downgrade_upgrade:
 	make docker_up
 	sleep 5s
-	DOCKER_CMD='env DB_USER=alembic_user bash -xv ./other/test/test_upgrade_then_downgrade.sh' make run
+	DOCKER_CMD='env DB_USER=alembic_user bash -xv ./other/test/test_upgrade_then_downgrade.sh' make docker_run
 	make down
 
 alembic_autogenerate_upgrade:
-	$(call ensure_env_var_is_set,DB_USER)
-	$(call ensure_env_var_is_set,DB_PASS)
-	$(call ensure_env_var_is_set,DB_HOST)
-	$(call ensure_env_var_is_set,DATABASE)
+	$(call ensure_env_var_is_set,POSTGRES_USER)
+	$(call ensure_env_var_is_set,POSTGRES_PASSWORD)
+	$(call ensure_env_var_is_set,POSTGRES_HOST)
+	$(call ensure_env_var_is_set,POSTGRES_DB)
 	$(call ensure_env_var_is_set,ALEMBIC_MESSAGE)
-	DOCKER_CMD='./other/bin/alembic_auto_generate' make run
+	DOCKER_CMD='./other/bin/alembic_auto_generate' make docker_run
 	make format
 
 alembic_upgrade:
-	$(call ensure_env_var_is_set,DB_USER)
-	$(call ensure_env_var_is_set,DB_PASS)
-	$(call ensure_env_var_is_set,DB_HOST)
-	$(call ensure_env_var_is_set,DATABASE)
+	$(call ensure_env_var_is_set,POSTGRES_USER)
+	$(call ensure_env_var_is_set,POSTGRES_PASSWORD)
+	$(call ensure_env_var_is_set,POSTGRES_HOST)
+	$(call ensure_env_var_is_set,POSTGRES_DB)
 	$(call ensure_env_var_is_set,ALEMBIC_TARGET_ID)
-	DOCKER_CMD='./other/bin/alembic_upgrade' make run
+	DOCKER_CMD='./other/bin/alembic_upgrade' make docker_run
 
 alembic_downgrade:
-	$(call ensure_env_var_is_set,DB_USER)
-	$(call ensure_env_var_is_set,DB_PASS)
-	$(call ensure_env_var_is_set,DB_HOST)
-	$(call ensure_env_var_is_set,DATABASE)
+	$(call ensure_env_var_is_set,POSTGRES_USER)
+	$(call ensure_env_var_is_set,POSTGRES_PASSWORD)
+	$(call ensure_env_var_is_set,POSTGRES_HOST)
+	$(call ensure_env_var_is_set,POSTGRES_DB)
 	$(call ensure_env_var_is_set,ALEMBIC_TARGET_ID)
-	DOCKER_CMD='./other/bin/alembic_downgrade' make run
+	DOCKER_CMD='./other/bin/alembic_downgrade' make docker_run
 
 #  --- }}}
 

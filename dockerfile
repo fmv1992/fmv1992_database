@@ -7,6 +7,10 @@ LABEL maintainer="Felipe M. Vieira <fmv1992@gmail.com>"
 
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
+ARG uid
+ARG gid
+ARG project
+
 RUN apt-get update
 RUN apt-get install --no-install-recommends --yes \
         ca-certificates \
@@ -40,15 +44,15 @@ RUN apt-get autoremove -yqq --purge \
 # Set up unprivileged user.
 # <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user>.
 # Also in `analytics-scripts:d76b146:dockerfile:26`.
-ARG uid
-ARG gid
-ARG project
 RUN groupadd --system --gid $gid ubuntu && useradd --no-log-init --create-home --system --gid ubuntu --uid $uid ubuntu
 USER ubuntu
 ENV HOME /home/ubuntu
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 WORKDIR "${HOME}/${project}"
+
+# Copy some files.
+COPY --chown=ubuntu:ubuntu ./other/bin $HOME/${project}/other/bin
 
 ENV PYTHONPATH="${HOME}"
 
