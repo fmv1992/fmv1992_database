@@ -1,0 +1,34 @@
+# `my_postgres:25512d8:docker_compose.yml:1`.
+
+# https://docs.docker.com/compose/compose-file/
+
+services:
+    fmv1992_backup_system_postgres:
+        image: postgres@sha256:7211ad97f0ee411fc15fdde06671c38f735273c3933b5ee8b9d169e07d82303f
+        environment:
+            POSTGRES_PASSWORD: password_fmv1992_backup_system_postgres
+            POSTGRES_USER: fmv1992_backup_system_user
+            POSTGRES_DB: fmv1992_backup_system_client
+    fmv1992_backup_system_client:
+        build:
+            context: "./"
+            dockerfile: ./dockerfile
+        hostname: fmv1992_backup_system_client
+        links:
+            - fmv1992_backup_system_postgres
+        depends_on:
+            - fmv1992_backup_system_postgres
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t
+#       volumes:
+#           - type: bind
+#             source: "${FINANCIAL_DATA}"
+#             target: "/home/user/${PROJECT}/mount_points/input"
+#             read_only: true
+        entrypoint: ""
+        command: ""
+
+volumes:
+    fmv1992_backup_system_volume:
+
+# vim: set filetype=yaml fileformat=unix nowrap spell spelllang=en shiftwidth=4:
