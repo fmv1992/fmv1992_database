@@ -36,6 +36,16 @@ Features:
 
 ## Changelog
 
+<!-- `commbbebd48`: For a full changelog example. -->
+
+## Unreleased
+
+*   Add a database migration.
+
+## v0.0.0 - 2022-07-24 
+
+*   Added this changelog.
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Changelog
 All notable changes to this project will be documented in this file.
