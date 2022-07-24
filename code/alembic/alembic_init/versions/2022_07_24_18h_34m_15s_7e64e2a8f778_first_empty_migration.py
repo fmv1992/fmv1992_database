@@ -1,7 +1,7 @@
 """first (empty) migration
 
 Revision ID: 7e64e2a8f778
-Revises: 
+Revises:
 Create Date: 2022-07-24 18:34:15.605623
 
 """
