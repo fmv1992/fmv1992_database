@@ -13,6 +13,10 @@ services:
         build:
             context: "./"
             dockerfile: ./dockerfile
+            args:
+                project: "${PROJECT}"
+                gid: "${GID}"
+                uid: "${UID}"
         hostname: fmv1992_backup_system_client
         links:
             - fmv1992_backup_system_postgres

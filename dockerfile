@@ -1,13 +1,9 @@
 # `analytics_database_schemas:4ae6c00:dockerfile:1`:
 
 # ———————————————————————————————————————————————————————————————————————————————
-# From:
+FROM ubuntu@sha256:9101220a875cee98b016668342c489ff0674f247f6ca20dfc91b91c0f28581ae
 
-# 1.    <https://██████.slack.com/archives/C03PND6MK7C/p1657886305657099>.
-# 2.    <https://██████.slack.com/archives/C5WNXK932/p1658151502200749>.
-FROM registry.internal.██████.com/library/library/ubuntu@sha256:9101220a875cee98b016668342c489ff0674f247f6ca20dfc91b91c0f28581ae
-
-LABEL maintainer="██████ Engineering <engineering@██████.com>"
+LABEL maintainer="Felipe M. Vieira <fmv1992@gmail.com>"
 
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
@@ -27,8 +23,6 @@ RUN apt-get install --no-install-recommends --yes \
 
 # Install `PostgreSQL`.
 RUN command -V lsb_release
-# As of 2022-04-11 `domo_warehouse` version is: `PostgreSQL 11.14`.
-# As of 2022-04-11 `domo_dev_warehouse` version is: `PostgreSQL 11.14`.
 RUN curl --location --output - -- https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update && apt-get install --yes postgresql-client-11
