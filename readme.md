@@ -42,7 +42,7 @@ Features:
 
 *   Add a database migration.
 
-## v0.0.0 - 2022-07-24 
+## v0.0.0 - 2022-07-24
 
 *   Added this changelog.
 
