@@ -2,19 +2,12 @@
 import functools
 
 import sqlalchemy as sa
-
-ColumnNonNull = functools.partial(sa.Column, nullable=False)
-
-
-def exception(*args, **kwargs):
-    raise Exception(f"'{args}', '{kwargs}'.")
-
-
-sa.Column = exception
-
 from sqlalchemy.ext.declarative import declarative_base
 
 # https://docs.sqlalchemy.org/en/14/core/type_basics.html
+
+ColumnNonNull = functools.partial(sa.Column, nullable=False)
+sa.Column = ColumnNonNull
 
 Base = declarative_base()
 

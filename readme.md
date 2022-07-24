@@ -4,6 +4,19 @@
 
 * * *
 
+```
+
+cdp fmv1992_backup_system
+make docker_down
+docker volume rm fmv1992_backup_system_fmv1992_backup_system_volume
+make docker_up
+ALEMBIC_TARGET_ID='head' make docker_build alembic_upgrade
+rm **/*create_the_idtoblob_table*
+ALEMBIC_MESSAGE='Create the `IdToBlob` table.' make docker_build alembic_autogenerate_upgrade
+```
+
+* * *
+
 See <http://localhost:1993/project/1/task/177#comments>.
 
 Features:
