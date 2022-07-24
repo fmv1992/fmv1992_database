@@ -4,12 +4,13 @@
 # But not these files...
 !*.config
 !dockerfile
+!.dockerignore
 !*.erl
 !*.ex
-# Git files.
 !.gitignore
 !.gitkeep
 !*.hrl
+!*.ini
 !makefile
 !*.md
 !post-checkout
@@ -25,9 +26,14 @@
 !*.sh
 !*.sql
 !*.src
-# !*.txt
+!*.txt
 !*.vim
-# etc...
+!*.yaml
+!*.yml
+
+# Do not ignore these folders neither.
+!code/alembic/*
+!other/*
 
 # ...even if they are in subdirectories
 !*/
