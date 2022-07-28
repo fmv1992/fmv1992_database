@@ -9,15 +9,8 @@
 # Halt on error.
 set -euo pipefail
 
-# ———————————————————————————————————————————————————————————————————————————————
-#! /usr/bin/env bash
-
-# Halt on error.
-set -euxo pipefail
-
-if [[ $# != 1 ]]; then
-    echo "Illegal number of parameters ($#): '$*'. Expected 1." > /dev/stderr
-    echo "The parameter is 'destination directory'." > /dev/stderr
+if [[ $# != 0 ]]; then
+    echo "Illegal number of parameters ($#): '$*'. Expected 0." > /dev/stderr
     exit 1
 fi
 
@@ -25,10 +18,6 @@ tar \
     --create \
     --directory . \
     --file - \
-    --files-from - \
-    | (cd "${1}" && tar --keep-old-files -xvf - > /dev/stderr 2>&1)
-
-# vim: set filetype=sh fileformat=unix nowrap:
-# ———————————————————————————————————————————————————————————————————————————————
+    --files-from -
 
 # vim: set filetype=sh fileformat=unix nowrap:
