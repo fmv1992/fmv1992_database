@@ -1,0 +1,34 @@
+#! /usr/bin/env bash
+#
+# This script takes zero arguments.
+#
+# It reads its input files from stdin.
+#
+# ???: How do we send files on the host OS to a `docker` container? `cptar`?
+
+# Halt on error.
+set -euo pipefail
+
+# ———————————————————————————————————————————————————————————————————————————————
+#! /usr/bin/env bash
+
+# Halt on error.
+set -euxo pipefail
+
+if [[ $# != 1 ]]; then
+    echo "Illegal number of parameters ($#): '$*'. Expected 1." > /dev/stderr
+    echo "The parameter is 'destination directory'." > /dev/stderr
+    exit 1
+fi
+
+tar \
+    --create \
+    --directory . \
+    --file - \
+    --files-from - \
+    | (cd "${1}" && tar --keep-old-files -xvf - > /dev/stderr 2>&1)
+
+# vim: set filetype=sh fileformat=unix nowrap:
+# ———————————————————————————————————————————————————————————————————————————————
+
+# vim: set filetype=sh fileformat=unix nowrap:
