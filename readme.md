@@ -2,6 +2,8 @@
 
 ???.
 
+*   How do we want to handle symlinks?
+
 * * *
 
 ```
