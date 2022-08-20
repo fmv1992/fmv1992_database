@@ -57,6 +57,8 @@ Features:
 
 *   Add a database migration.
 
+*   [Repurpose this to be my multipurpose database](http://localhost:1993/project/1/task/178#comment-175).
+
 ## v0.0.0 - 2022-07-24
 
 *   Added this changelog.
