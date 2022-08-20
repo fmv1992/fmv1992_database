@@ -62,13 +62,12 @@ class IdToBlob(Base):
 
     # Universals
 
+    Old approach:
+    `fmv1992_backup_system:7775e0e:code/alembic/alembic_init/model/fmv1992_backup_system_database/__init__.py:65`.
+
     *   UUID to to binary content.
 
-        *   If `is_compressed == `True`: `binary` is empty (b'') but there
-        exists another `id` with non empty `binary` which when decompressed
-        yields that same `id`.
-
-        *   If `is_compressed == `False`: `id = hash(binary)`.
+        *   If `is_compressed == `True`: `binary`'s content does not match the `id`. However the decompressed value does match the `id`.
 
     """
     __tablename__ = "id_to_binary"
@@ -77,17 +76,9 @@ class IdToBlob(Base):
     id_ = Reuse.get_id()
     is_compressed = ColumnNonNull(sa.types.Boolean(),
         comment="""
-???: What to do when it is compressed?
+Tells whether the `binary` column is compressed or not.
 
-Scenario:
-
-1.  We save an uncompressed file with `checksum01`.
-
-1.  We compress that file with `checksum02`.
-
-*   Do we delete the original entry and insert a new one?
-
-*   Do we keep the original entry and id? Then the universal of `id = hash(content)` breaks.
+If it is not compressed then `id = hash(binary)`. If it is compressed then `id = hash(uncompressed(binary))`.
 """.strip()
             )
     comment = ColumnNonNull(
