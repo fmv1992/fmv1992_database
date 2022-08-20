@@ -58,11 +58,38 @@ Timestamp associated with the backed up file/binary blob.
 
 
 class IdToBlob(Base):
+    """UUID to binary blob relation.
+
+    # Universals
+
+    *   UUID to to binary content.
+
+        *   If `is_compressed == `True`: `binary` is empty (b'') but there
+        exists another `id` with non empty `binary` which when decompressed
+        yields that same `id`.
+
+        *   If `is_compressed == `False`: `id = hash(binary)`.
+
+    """
     __tablename__ = "id_to_binary"
     __table_args__ = {"schema": "fmv1992_backup_system"}
 
     id_ = Reuse.get_id()
-    is_compressed = ColumnNonNull(sa.types.Boolean())
+    is_compressed = ColumnNonNull(sa.types.Boolean(),
+        comment="""
+???: What to do when it is compressed?
+
+Scenario:
+
+1.  We save an uncompressed file with `checksum01`.
+
+1.  We compress that file with `checksum02`.
+
+*   Do we delete the original entry and insert a new one?
+
+*   Do we keep the original entry and id? Then the universal of `id = hash(content)` breaks.
+""".strip()
+            )
     comment = ColumnNonNull(
         sa.types.String(),
         comment="""
@@ -85,7 +112,7 @@ class Backups(Base):
         sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
         primary_key=True,
     )
-    timestamp = Reuse.get_timestamp()
+    datetime_creation = Reuse.get_timestamp()
     path = ColumnNonNull(
         sa.types.String(),
         primary_key=True,
@@ -100,4 +127,4 @@ class AccessRecord(Base):
         sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
         primary_key=True,
     )
-    timestamp = Reuse.get_timestamp()
+    datetime_access = Reuse.get_timestamp()
