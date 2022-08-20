@@ -70,17 +70,19 @@ class IdToBlob(Base):
         *   If `is_compressed == `True`: `binary`'s content does not match the `id`. However the decompressed value does match the `id`.
 
     """
+
     __tablename__ = "id_to_binary"
     __table_args__ = {"schema": "fmv1992_backup_system"}
 
     id_ = Reuse.get_id()
-    is_compressed = ColumnNonNull(sa.types.Boolean(),
+    is_compressed = ColumnNonNull(
+        sa.types.Boolean(),
         comment="""
 Tells whether the `binary` column is compressed or not.
 
 If it is not compressed then `id = hash(binary)`. If it is compressed then `id = hash(uncompressed(binary))`.
-""".strip()
-            )
+""".strip(),
+    )
     comment = ColumnNonNull(
         sa.types.String(),
         comment="""
