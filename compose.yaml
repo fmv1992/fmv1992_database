@@ -3,13 +3,13 @@
 # https://docs.docker.com/compose/compose-file/
 
 services:
-    fmv1992_backup_system_postgres:
+    fmv1992_database_postgres:
         image: postgres@sha256:7211ad97f0ee411fc15fdde06671c38f735273c3933b5ee8b9d169e07d82303f
         environment:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_DB: ${POSTGRES_DB}
-    fmv1992_backup_system_client:
+    fmv1992_database_client:
         build:
             context: "./"
             dockerfile: ./dockerfile
@@ -24,11 +24,11 @@ services:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_DB: ${POSTGRES_DB}
-        hostname: fmv1992_backup_system_client
+        hostname: fmv1992_database_client
         links:
-            - fmv1992_backup_system_postgres
+            - fmv1992_database_postgres
         depends_on:
-            - fmv1992_backup_system_postgres
+            - fmv1992_database_postgres
         stdin_open: true # docker run -i
         tty: true        # docker run -t
         volumes:
@@ -48,6 +48,6 @@ services:
         command: bash
 
 volumes:
-    fmv1992_backup_system_volume:
+    fmv1992_database_volume:
 
 # vim: set filetype=yaml fileformat=unix nowrap spell spelllang=en shiftwidth=4:

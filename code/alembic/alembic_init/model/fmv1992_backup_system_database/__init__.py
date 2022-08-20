@@ -27,7 +27,7 @@ Unique ID of every primary blob.
 
 I decided to use `xxHash` for its collision resistance and speed.
 
-Hash example: `{len(_hash_xxh_example)}` (`fmv1992_backup_system:7ec185b:pyproject.toml:1`).
+Hash example: `{len(_hash_xxh_example)}` (`fmv1992_database:7ec185b:pyproject.toml:1`).
 
 # Related links:
 
@@ -63,26 +63,24 @@ class IdToBlob(Base):
     # Universals
 
     Old approach:
-    `fmv1992_backup_system:7775e0e:code/alembic/alembic_init/model/fmv1992_backup_system_database/__init__.py:65`.
+    `fmv1992_database:7775e0e:code/alembic/alembic_init/model/fmv1992_database_database/__init__.py:65`.
 
     *   UUID to to binary content.
 
         *   If `is_compressed == `True`: `binary`'s content does not match the `id`. However the decompressed value does match the `id`.
 
     """
-
     __tablename__ = "id_to_binary"
     __table_args__ = {"schema": "fmv1992_backup_system"}
 
     id_ = Reuse.get_id()
-    is_compressed = ColumnNonNull(
-        sa.types.Boolean(),
+    is_compressed = ColumnNonNull(sa.types.Boolean(),
         comment="""
 Tells whether the `binary` column is compressed or not.
 
 If it is not compressed then `id = hash(binary)`. If it is compressed then `id = hash(uncompressed(binary))`.
-""".strip(),
-    )
+""".strip()
+            )
     comment = ColumnNonNull(
         sa.types.String(),
         comment="""
@@ -110,6 +108,7 @@ class Backups(Base):
         sa.types.String(),
         primary_key=True,
     )
+    is_symlink = ColumnNonNull(sa.types.Boolean())
 
 
 class AccessRecord(Base):

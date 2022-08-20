@@ -1,7 +1,7 @@
 SHELL := /bin/bash -euo pipefail
 export ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-export PROJECT ?= fmv1992_backup_system
+export PROJECT ?= fmv1992_database
 
 export UID := $(shell id -u)
 export GID := $(shell id -g)
@@ -10,10 +10,10 @@ DOCKER_COMPOSE_FILE := ./compose.yaml
 
 # Postgres credentials. --- {{{
 
-export POSTGRES_DB := fmv1992_backup_system
-export POSTGRES_HOST := fmv1992_backup_system_postgres
-export POSTGRES_PASSWORD := password_fmv1992_backup_system_postgres
-export POSTGRES_USER := fmv1992_backup_system_user
+export POSTGRES_DB := fmv1992_database
+export POSTGRES_HOST := fmv1992_database_postgres
+export POSTGRES_PASSWORD := password_fmv1992_database_postgres
+export POSTGRES_USER := fmv1992_database_user
 
 #  --- }}}
 
@@ -44,7 +44,7 @@ docker_run:
         run \
         --rm \
         --entrypoint '' \
-        fmv1992_backup_system_client \
+        fmv1992_database_client \
         $(DOCKER_CMD)
 
 docker_down:
