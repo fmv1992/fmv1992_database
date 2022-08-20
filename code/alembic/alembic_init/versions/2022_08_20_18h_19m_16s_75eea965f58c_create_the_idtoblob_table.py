@@ -1,8 +1,8 @@
 """Create the `IdToBlob` table.
 
-Revision ID: 099bb07befba
+Revision ID: 75eea965f58c
 Revises: 7e64e2a8f778
-Create Date: 2022-08-20 14:21:26.456178
+Create Date: 2022-08-20 18:19:16.625865
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "099bb07befba"
+revision = "75eea965f58c"
 down_revision = "7e64e2a8f778"
 branch_labels = None
 depends_on = None
@@ -26,7 +26,12 @@ def upgrade() -> None:
             nullable=False,
             comment="Unique ID of every primary blob.\n\nI decided to use `xxHash` for its collision resistance and speed.\n\nHash example: `32` (`fmv1992_backup_system:7ec185b:pyproject.toml:1`).\n\n# Related links:\n\n1.  <https://github.com/Cyan4973/xxHash>.",
         ),
-        sa.Column("is_compressed", sa.Boolean(), nullable=False),
+        sa.Column(
+            "is_compressed",
+            sa.Boolean(),
+            nullable=False,
+            comment="Tells whether the `binary` column is compressed or not.\n\nIf it is not compressed then `id = hash(binary)`. If it is compressed then `id = hash(uncompressed(binary))`.",
+        ),
         sa.Column(
             "comment",
             sa.String(),
