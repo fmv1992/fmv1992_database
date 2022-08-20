@@ -3,7 +3,7 @@
 # Halt on error.
 set -euo pipefail
 
-source other/bin/common
+source other/bin/alembic/common
 
 cd ./code/alembic/
 

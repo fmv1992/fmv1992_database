@@ -71,7 +71,7 @@ alembic_autogenerate_upgrade:
 	$(call ensure_env_var_is_set,POSTGRES_HOST)
 	$(call ensure_env_var_is_set,POSTGRES_DB)
 	$(call ensure_env_var_is_set,ALEMBIC_MESSAGE)
-	DOCKER_CMD='./other/bin/alembic_auto_generate' make docker_run
+	DOCKER_CMD='./other/bin/alembic/alembic_auto_generate' make docker_run
 	make format
 
 alembic_upgrade:
@@ -80,7 +80,7 @@ alembic_upgrade:
 	$(call ensure_env_var_is_set,POSTGRES_HOST)
 	$(call ensure_env_var_is_set,POSTGRES_DB)
 	$(call ensure_env_var_is_set,ALEMBIC_TARGET_ID)
-	DOCKER_CMD='./other/bin/alembic_upgrade' make docker_run
+	DOCKER_CMD='./other/bin/alembic/alembic_upgrade' make docker_run
 
 alembic_downgrade:
 	$(call ensure_env_var_is_set,POSTGRES_USER)
@@ -88,7 +88,7 @@ alembic_downgrade:
 	$(call ensure_env_var_is_set,POSTGRES_HOST)
 	$(call ensure_env_var_is_set,POSTGRES_DB)
 	$(call ensure_env_var_is_set,ALEMBIC_TARGET_ID)
-	DOCKER_CMD='./other/bin/alembic_downgrade' make docker_run
+	DOCKER_CMD='./other/bin/alembic/alembic_downgrade' make docker_run
 
 #  --- }}}
 

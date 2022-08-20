@@ -59,10 +59,18 @@ Timestamp associated with the backed up file/binary blob.
 
 class IdToBlob(Base):
     __tablename__ = "id_to_binary"
+    __table_args__ = {"schema": "fmv1992_backup_system"}
 
     id_ = Reuse.get_id()
-    binary = ColumnNonNull(sa.types.LargeBinary())
     is_compressed = ColumnNonNull(sa.types.Boolean())
+    comment = ColumnNonNull(
+        sa.types.String(),
+        comment="""
+Comment associated with the binary.
+""".strip(),
+        server_default=sa.text("''"),
+    )
+    binary = ColumnNonNull(sa.types.LargeBinary())
 
     sa.schema.CheckConstraint(
         sa.text(f"char_length(id) = {len(_hash_xxh_example)}")
@@ -71,9 +79,11 @@ class IdToBlob(Base):
 
 class Backups(Base):
     __tablename__ = "backups"
+    __table_args__ = {"schema": "fmv1992_backup_system"}
 
     id_ = Reuse.get_id(
-        sa.schema.ForeignKey("id_to_binary.id"), primary_key=True
+        sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
+        primary_key=True,
     )
     timestamp = Reuse.get_timestamp()
     path = ColumnNonNull(
@@ -84,8 +94,10 @@ class Backups(Base):
 
 class AccessRecord(Base):
     __tablename__ = "access_record"
+    __table_args__ = {"schema": "fmv1992_backup_system"}
 
     id_ = Reuse.get_id(
-        sa.schema.ForeignKey("id_to_binary.id"), primary_key=True
+        sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
+        primary_key=True,
     )
     timestamp = Reuse.get_timestamp()
