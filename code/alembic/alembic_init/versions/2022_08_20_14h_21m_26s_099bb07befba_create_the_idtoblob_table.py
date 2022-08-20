@@ -1,8 +1,8 @@
 """Create the `IdToBlob` table.
 
-Revision ID: 070c1d5674d8
-Revises: 
-Create Date: 2022-08-20 14:14:08.108989
+Revision ID: 099bb07befba
+Revises: 7e64e2a8f778
+Create Date: 2022-08-20 14:21:26.456178
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "070c1d5674d8"
-down_revision = None
+revision = "099bb07befba"
+down_revision = "7e64e2a8f778"
 branch_labels = None
 depends_on = None
 
