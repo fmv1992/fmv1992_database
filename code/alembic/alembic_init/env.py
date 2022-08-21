@@ -1,3 +1,4 @@
+import sys
 import os
 
 from logging.config import fileConfig
@@ -13,6 +14,9 @@ def include_object(object, name, type_, reflected, compare_to):
 
 
 def include_name(name, type_, parent_names):
+    print("-" * 79, file=sys.stderr)
+    print(name, file=sys.stderr)
+    print("-" * 79, file=sys.stderr)
     return True
     if type_ == "schema":
         # note this will not include the default schema
@@ -72,10 +76,9 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
-        # include_schemas=True,
-        # include_name=include_name,
-        # include_object=include_object,
-        version_table_schema=target_metadata.schema,
+        include_schemas=True,
+        include_name=include_name,
+        include_object=include_object,
     )
 
     with context.begin_transaction():
@@ -97,7 +100,11 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            include_schemas=True,
+            include_name=include_name,
+            include_object=include_object,
         )
 
         with context.begin_transaction():

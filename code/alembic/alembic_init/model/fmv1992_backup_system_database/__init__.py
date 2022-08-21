@@ -16,6 +16,12 @@ Base = declarative_base(metadata=MetaData(schema="public"))
 
 _hash_xxh_example = "f6f9786af9c448d93fe0ab36821a0b17"
 
+SCHEMA = "fmv1992_backup_system"
+# ✂ -----------------------------------------------------------------------------
+# from sqlalchemy.schema import CreateSchema
+# engine.execute(CreateSchema('my_schema'))
+# ----------------------------------------------------------------------------- ✂
+
 
 class Reuse(object):
     @staticmethod
@@ -74,7 +80,7 @@ class IdToBlob(Base):
     """
 
     __tablename__ = "id_to_binary"
-    __table_args__ = {"schema": "fmv1992_backup_system"}
+    __table_args__ = {"schema": SCHEMA}
 
     id_ = Reuse.get_id()
     is_compressed = ColumnNonNull(
@@ -133,7 +139,7 @@ This is the heart of the `fmv1992_backup_system` schema.
 
 class Backups(Base):
     __tablename__ = "backups"
-    __table_args__ = {"schema": "fmv1992_backup_system"}
+    __table_args__ = {"schema": SCHEMA}
 
     id_ = Reuse.get_id(
         sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
@@ -149,7 +155,7 @@ class Backups(Base):
 
 class AccessRecord(Base):
     __tablename__ = "access_record"
-    __table_args__ = {"schema": "fmv1992_backup_system"}
+    __table_args__ = {"schema": SCHEMA}
 
     id_ = Reuse.get_id(
         sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),

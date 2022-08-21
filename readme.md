@@ -57,6 +57,8 @@ Features:
 
 ## Unreleased
 
+*   Auto detect different schemas.
+
 *   Add a database migration.
 
 *   [Repurpose this to be my multipurpose database](http://localhost:1993/project/1/task/178#comment-175).
