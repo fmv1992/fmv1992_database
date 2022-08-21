@@ -13,6 +13,7 @@ DOCKER_COMPOSE_FILE := ./compose.yaml
 export POSTGRES_DB := fmv1992_database
 export POSTGRES_HOST := fmv1992_database_postgres
 export POSTGRES_PASSWORD := password_fmv1992_database_postgres
+export POSTGRES_PORT := 5999
 export POSTGRES_USER := fmv1992_database_user
 
 #  --- }}}
@@ -51,10 +52,10 @@ docker_down:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
 
 docker_up:
-	docker-compose --file $(DOCKER_COMPOSE_FILE) up --detach
+	docker-compose --file $(DOCKER_COMPOSE_FILE) up fmv1992_database_postgres
 
 docker_local_database_connect:
-	DOCKER_CMD='env PGPASSWORD=$(POSTGRES_PASSWORD) psql --host $(POSTGRES_HOST) --username $(POSTGRES_USER) $(POSTGRES_DB)' make docker_run
+	DOCKER_CMD='env PGPASSWORD=$(POSTGRES_PASSWORD) psql --port $(POSTGRES_PORT) --host $(POSTGRES_HOST) --username $(POSTGRES_USER) $(POSTGRES_DB)' make docker_run
 
 # Alembic. --- {{{
 
