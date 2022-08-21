@@ -12,10 +12,11 @@ from alembic import context
 config = context.config
 section = config.config_ini_section
 for env_var in [
-    "POSTGRES_USER",
     "POSTGRES_DB",
     "POSTGRES_HOST",
     "POSTGRES_PASSWORD",
+    "POSTGRES_PORT",
+    "POSTGRES_USER",
 ]:
     config.set_section_option(section, env_var, os.environ[env_var])
 

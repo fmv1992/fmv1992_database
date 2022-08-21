@@ -90,7 +90,35 @@ Comment associated with the binary.
 """.strip(),
         server_default=sa.text("''"),
     )
-    binary = ColumnNonNull(sa.types.LargeBinary())
+    # ???: `vacuumlo`; see ref below.
+    binary = ColumnNonNull(
+        sa.types.LargeBinary(),
+        comment="""
+Sequence of bytes uniquely associated with an `id`.
+
+This is the heart of the `fmv1992_backup_system` schema.
+
+# Relevant extracts of the documentation:
+
+*   "Client applications cannot use these functions while a libpq connection is in pipeline mode.".
+
+*   How to import and export:
+
+    ```
+    Oid lo_import(PGconn *conn, const char *filename);
+    ```
+
+    ```
+    int lo_export(PGconn *conn, Oid lobjId, const char *filename);
+    ```
+
+# References:
+
+*   [Chapter 35. Large Objects](https://www.postgresql.org/docs/14/largeobjects.html).
+
+*   [F.20. lo](https://www.postgresql.org/docs/14/lo.html): `lo` stands for "Large Object".
+""".strip(),
+    )
 
     sa.schema.CheckConstraint(
         sa.text(f"char_length(id) = {len(_hash_xxh_example)}")
