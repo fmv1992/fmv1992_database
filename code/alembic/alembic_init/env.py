@@ -7,6 +7,20 @@ from sqlalchemy import pool
 
 from alembic import context
 
+
+def include_object(object, name, type_, reflected, compare_to):
+    return True
+
+
+def include_name(name, type_, parent_names):
+    return True
+    if type_ == "schema":
+        # note this will not include the default schema
+        return name in ["schema_one", "schema_two"]
+    else:
+        return True
+
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -58,6 +72,10 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        # include_schemas=True,
+        # include_name=include_name,
+        # include_object=include_object,
+        version_table_schema=target_metadata.schema,
     )
 
     with context.begin_transaction():

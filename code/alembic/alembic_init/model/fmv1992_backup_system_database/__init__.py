@@ -3,6 +3,8 @@ import functools
 import datetime as dt
 
 import sqlalchemy as sa
+from sqlalchemy import MetaData
+import sqlalchemy.dialects.postgresql
 from sqlalchemy.ext.declarative import declarative_base
 
 # https://docs.sqlalchemy.org/en/14/core/type_basics.html
@@ -10,7 +12,7 @@ from sqlalchemy.ext.declarative import declarative_base
 ColumnNonNull = functools.partial(sa.Column, nullable=False)
 sa.Column = ColumnNonNull
 
-Base = declarative_base()
+Base = declarative_base(metadata=MetaData(schema="public"))
 
 _hash_xxh_example = "f6f9786af9c448d93fe0ab36821a0b17"
 
@@ -93,8 +95,10 @@ Comment associated with the binary.
     # ???: `vacuumlo`; see ref below.
     #
     # ???: `alembic` does not support large objects`oid`; see <https://www.postgresql.org/docs/14/lo-funcs.html> and <https://stackoverflow.com/a/60569286/5544140>.
+    #
+    # # OID: <sqlalchemy.dialects.postgresql.OID>.
     binary = ColumnNonNull(
-        sa.types.LargeBinary(),
+        sqlalchemy.dialects.postgresql.OID(),
         comment="""
 Sequence of bytes uniquely associated with an `id`.
 

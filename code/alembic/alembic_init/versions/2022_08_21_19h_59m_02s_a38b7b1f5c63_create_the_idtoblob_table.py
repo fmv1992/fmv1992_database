@@ -1,16 +1,17 @@
 """Create the `IdToBlob` table.
 
-Revision ID: 8f138efd8bfa
+Revision ID: a38b7b1f5c63
 Revises: 7e64e2a8f778
-Create Date: 2022-08-21 15:13:54.562346
+Create Date: 2022-08-21 19:59:02.063844
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+import datetime
+from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = "8f138efd8bfa"
+revision = "a38b7b1f5c63"
 down_revision = "7e64e2a8f778"
 branch_labels = None
 depends_on = None
@@ -41,7 +42,7 @@ def upgrade() -> None:
         ),
         sa.Column(
             "binary",
-            sa.LargeBinary(),
+            postgresql.OID(),
             nullable=False,
             comment='Sequence of bytes uniquely associated with an `id`.\n\nThis is the heart of the `fmv1992_backup_system` schema.\n\n# Relevant extracts of the documentation:\n\n*   "Client applications cannot use these functions while a libpq connection is in pipeline mode.".\n\n*   How to import and export:\n\n    ```\n    Oid lo_import(PGconn *conn, const char *filename);\n    ```\n\n    ```\n    int lo_export(PGconn *conn, Oid lobjId, const char *filename);\n    ```\n\n# References:\n\n*   [Chapter 35. Large Objects](https://www.postgresql.org/docs/14/largeobjects.html).\n\n*   [F.20. lo](https://www.postgresql.org/docs/14/lo.html): `lo` stands for "Large Object".',
         ),

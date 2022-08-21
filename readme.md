@@ -10,10 +10,12 @@
 
 cdp fmv1992_database
 make docker_down
+docker volume rm fmv1992_backup_system_fmv1992_backup_system_volume
 docker volume rm fmv1992_database_fmv1992_database_volume
 make docker_up
 ALEMBIC_TARGET_ID='head' make docker_build alembic_upgrade
 rm **/*create_the_idtoblob_table*
+rm ./code/alembic/up.sql
 ALEMBIC_MESSAGE='Create the `IdToBlob` table.' make docker_build alembic_autogenerate_upgrade
 ```
 
