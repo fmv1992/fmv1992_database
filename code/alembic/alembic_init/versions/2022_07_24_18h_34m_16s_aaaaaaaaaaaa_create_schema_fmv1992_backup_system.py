@@ -1,4 +1,4 @@
-"""first (empty) migration
+"""Create the `fmv1992_backup_system` schema.
 
 Revision ID: aaaaaaaaaaaa
 Revises:

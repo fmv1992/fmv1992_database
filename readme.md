@@ -59,6 +59,8 @@ Features:
 
 *   Auto detect different schemas.
 
+    Schemas are not getting auto created.
+
 *   Add a database migration.
 
 *   [Repurpose this to be my multipurpose database](http://localhost:1993/project/1/task/178#comment-175).

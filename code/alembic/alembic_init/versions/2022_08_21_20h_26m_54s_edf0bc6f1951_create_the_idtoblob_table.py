@@ -47,7 +47,7 @@ def upgrade() -> None:
             comment='Sequence of bytes uniquely associated with an `id`.\n\nThis is the heart of the `fmv1992_backup_system` schema.\n\n# Relevant extracts of the documentation:\n\n*   "Client applications cannot use these functions while a libpq connection is in pipeline mode.".\n\n*   How to import and export:\n\n    ```\n    Oid lo_import(PGconn *conn, const char *filename);\n    ```\n\n    ```\n    int lo_export(PGconn *conn, Oid lobjId, const char *filename);\n    ```\n\n# References:\n\n*   [Chapter 35. Large Objects](https://www.postgresql.org/docs/14/largeobjects.html).\n\n*   [F.20. lo](https://www.postgresql.org/docs/14/lo.html): `lo` stands for "Large Object".',
         ),
         sa.PrimaryKeyConstraint("id"),
-        schema="fmv1992_backup_system",
+        schema="",
     )
     op.create_table(
         "access_record",
