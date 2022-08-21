@@ -13,7 +13,7 @@ import fmv1992_backup_system_database
 
 # revision identifiers, used by Alembic.
 revision = "aaaaaaaaaaaa"
-down_revision = None
+down_revision = "7e64e2a8f778"
 branch_labels = None
 depends_on = None
 
