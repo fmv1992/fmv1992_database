@@ -91,6 +91,8 @@ Comment associated with the binary.
         server_default=sa.text("''"),
     )
     # ???: `vacuumlo`; see ref below.
+    #
+    # ???: `alembic` does not support large objects`oid`; see <https://www.postgresql.org/docs/14/lo-funcs.html> and <https://stackoverflow.com/a/60569286/5544140>.
     binary = ColumnNonNull(
         sa.types.LargeBinary(),
         comment="""
