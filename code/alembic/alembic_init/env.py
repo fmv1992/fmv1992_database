@@ -51,6 +51,19 @@ import fmv1992_backup_system_database
 
 target_metadata = fmv1992_backup_system_database.Base.metadata
 
+# https://stackoverflow.com/a/22212214/5544140
+# ✂ -----------------------------------------------------------------------------
+from sqlalchemy import DDL
+from sqlalchemy import event
+
+event.listen(
+    target_metadata,
+    "before_create",
+    DDL(
+        f'CREATE SCHEMA IF NOT EXISTS "{fmv1992_backup_system_database.SCHEMA}"'
+    ),
+)
+# ----------------------------------------------------------------------------- ✂
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
