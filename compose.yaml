@@ -13,8 +13,9 @@ services:
             - "${POSTGRES_PORT}:${POSTGRES_PORT}"
         volumes:
             - ./backups:/home/backups
-#       command: -p ${POSTGRES_PORT}
-        command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr", "-p", "${POSTGRES_PORT}"]
+        command: -p ${POSTGRES_PORT}
+        # Debug mode:
+#       command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr", "-p", "${POSTGRES_PORT}"]
     fmv1992_database_client:
         build:
             context: "./"

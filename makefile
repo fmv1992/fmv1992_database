@@ -52,7 +52,7 @@ docker_down:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
 
 docker_up:
-	docker-compose --file $(DOCKER_COMPOSE_FILE) up fmv1992_database_postgres
+	docker-compose --file $(DOCKER_COMPOSE_FILE) up --detach
 
 docker_local_database_connect:
 	DOCKER_CMD='env PGPASSWORD=$(POSTGRES_PASSWORD) psql --port $(POSTGRES_PORT) --host $(POSTGRES_HOST) --username $(POSTGRES_USER) $(POSTGRES_DB)' make docker_run
