@@ -1,6 +1,7 @@
-"""Sync CSV files and `???`.
+"""Sync CSV files and `fmv1992_database.fmv1992_books`.
 
-See how to use `sqlalchemy` in the most forward compatible way here: <???>.
+See how to use `sqlalchemy` in the most forward compatible way here:
+<https://docs.sqlalchemy.org/en/14/changelog/migration_20.html>.
 """
 import os
 
