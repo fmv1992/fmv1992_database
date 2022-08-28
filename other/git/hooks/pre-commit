@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+#
+#   Examples:
+#
+#   *  `$HOME/dev/pud/download_website_as_txt/other/git/hooks/pre-commit`.
+
+# Halt on error.
+set -euo pipefail
+
+# Go to execution directory.
+{ cd "$(dirname $(readlink -f "${0}"))" && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && cd "$(git rev-parse --show-toplevel 2> /dev/null)"; } || cd "$(dirname "$(readlink -f ${0})")"
+# Close identation: }
+cd ../../
+test -d ./.git
+
+make test
+
+# vim: set filetype=sh fileformat=unix nowrap:
