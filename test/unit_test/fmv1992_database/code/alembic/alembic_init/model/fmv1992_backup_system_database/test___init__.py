@@ -14,26 +14,16 @@ from fmv1992_database.lib import get_fmv1992_database_engine
 # # IdToBlob
 
 
-# class TestX(unittest.TestCase):
-#     def test_fails(self):
-#         pass
-#         import ipdb
-#         ipdb.set_trace()
-#         pass
-#         raise RuntimeError("Fail.")
+class TestX(unittest.TestCase):
+    def test_fails(self):
+        raise RuntimeError("Fail.")
 
 
 class TestGeneralIdeas(unittest.TestCase):
     def test_pythonpath_refers_to_directories(self):
-        pass
-        import ipdb
-        ipdb.set_trace()
-        pass
-        print("", file=sys.stderr)
         for dir_ in filter(None, os.environ["PYTHONPATH"].split(":")):
             with self.subTest(pythonpath_dir=dir_):
                 self.assertTrue(os.path.isdir(dir_))
-                print(dir_, file=sys.stderr)
 
 
 class TestEnsureTestsExecuted(unittest.TestCase):
