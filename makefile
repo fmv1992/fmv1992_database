@@ -29,7 +29,7 @@ test: validate_docker_compose
 
 test_semantic_python:
 	@# `*.tests_are_done` exists to ensure that tests executed ok.
-	DOCKER_CMD='bash -c '"'"'python3 -m unittest discover -vvv --top-level-directory ./test/unittest/ --start-directory ./test/unittest/fmv1992_database && test -f /tmp/.$@.tests_are_done'"'" make docker_run
+	DOCKER_CMD='bash -c '"'"'python3 -m unittest discover -vvv --top-level-directory ./test/unittest/ --start-directory ./test/unittest/fmv1992_database && test -f /tmp/.$@.tests_are_done && rm /tmp/.$@.tests_are_done'"'" make docker_run
 
 format:
 	DOCKER_CMD='bash -c '"'"'black .'"'" make docker_run
