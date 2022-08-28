@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+# Halt on error.
+set -euo pipefail
+
+# Go to execution directory.
+{ cd "$(dirname $(readlink -f "${0}"))" && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && cd "$(git rev-parse --show-toplevel 2> /dev/null)"; } || cd "$(dirname "$(readlink -f ${0})")"
+# Close identation: }
+cd ../../
+test -d ./.git
+
+if make dev; then
+    exit 0
+else
+    rm ./.git/hooks/pre-commit
+fi
+
+# vim: set filetype=sh fileformat=unix nowrap:
