@@ -94,10 +94,22 @@ Comment associated with the binary.
     #
     # ???: `alembic` does not support large objects`oid`; see <https://www.postgresql.org/docs/14/lo-funcs.html> and <https://stackoverflow.com/a/60569286/5544140>.
     #
+    # Problem: <https://www.postgresql.org/docs/current/datatype-oid.html>:
+    #
+    # > The oid type is currently implemented as an unsigned four-byte integer.
+    # Therefore, it is not large enough to provide database-wide uniqueness in
+    # large databases, or even in large individual tables.
+    #
     # # OID: <sqlalchemy.dialects.postgresql.OID>.
     binary = ColumnNonNull(
         sqlalchemy.dialects.postgresql.OID(),
         comment="""
+**On 2022-08-28 I found out that large objects use OIDs, and that [OIDs are limited](https://www.postgresql.org/docs/current/datatype-oid.html):
+
+> The oid type is currently implemented as an unsigned four-byte integer. Therefore, it is not large enough to provide database-wide uniqueness in large databases, or even in large individual tables.
+
+* * *
+
 Sequence of bytes uniquely associated with an `id`.
 
 This is the heart of the `fmv1992_backup_system` schema.
