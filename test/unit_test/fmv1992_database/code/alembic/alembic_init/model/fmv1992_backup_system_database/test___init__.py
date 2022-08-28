@@ -7,16 +7,22 @@ import sys
 import unittest
 import os
 
+import sqlalchemy as sa
+
 import fmv1992_database.lib
 from fmv1992_database.lib import get_fmv1992_database_engine
-# import fmv1992_backup_system_database
-# import fmv1992_books_database
-# # IdToBlob
+import fmv1992_backup_system_database
+import fmv1992_books_database
 
 
 class TestX(unittest.TestCase):
-    def test_fails(self):
-        raise RuntimeError("Fail.")
+    def test_id_to_blob_column_type_is_not_OID(self):
+        column_binary = (
+            fmv1992_backup_system_database.IdToBlob.__table__.columns["binary"]
+        )
+        self.assertNotIsInstance(
+            column_binary.type, (sa.dialects.postgresql.OID,)
+        )
 
 
 class TestGeneralIdeas(unittest.TestCase):
