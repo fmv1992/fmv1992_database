@@ -28,7 +28,8 @@ all: docker_build format test alembic_upgrade
 test: validate_docker_compose
 
 test_semantic_python:
-	DOCKER_CMD='python3 -m unittest discover -vvv --top-level-directory ./test/unittest/ --start-directory ./test/unittest/fmv1992_database' make docker_run
+	@# `*.tests_are_done` exists to ensure that tests executed ok.
+	DOCKER_CMD='bash -c '"'"'python3 -m unittest discover -vvv --top-level-directory ./test/unittest/ --start-directory ./test/unittest/fmv1992_database && test -f /tmp/.$@.tests_are_done'"'" make docker_run
 
 format:
 	DOCKER_CMD='bash -c '"'"'black .'"'" make docker_run
