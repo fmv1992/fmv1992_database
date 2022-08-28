@@ -22,7 +22,9 @@ define ensure_env_var_is_set
     @printenv $(1) >/dev/null 2>&1 || { echo 'Please define the `$(1)` env var.' >/dev/stderr && exit 1 ; }
 endef
 
-all: format test
+all: docker_build format test
+	ALEMBIC_TARGET_ID='head' make alembic_upgrade
+	DOCKER_CMD='python3 ./code/scripts/fmv1992_database/fmv1992_books_database/sync_csvs_and_database.py' make docker_run
 
 test: validate_docker_compose
 
