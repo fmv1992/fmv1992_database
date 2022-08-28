@@ -27,6 +27,9 @@ all: docker_build format test alembic_upgrade
 
 test: validate_docker_compose
 
+test_semantic_python:
+	python3 -m unittest discover -vvv --top-level-directory ./ --start-directory ./tests/unittest
+
 format:
 	DOCKER_CMD='bash -c '"'"'black .'"'" make docker_run
 	DOCKER_CMD='sort -u -o requirements.txt -- requirements.txt' make docker_run
