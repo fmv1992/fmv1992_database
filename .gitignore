@@ -3,6 +3,7 @@
 
 # But not these files...
 !*.config
+!*.csv
 !dockerfile
 !.dockerignore
 !*.erl
@@ -33,6 +34,7 @@
 
 # Do not ignore these folders neither.
 !code/alembic/*
+!data/*
 !other/*
 
 # ...even if they are in subdirectories

@@ -52,6 +52,10 @@ services:
               source: "${ROOT_DIR}/code"
               target: "/home/ubuntu/${PROJECT}/code"
               read_only: false
+            - type: bind
+              source: "${ROOT_DIR}/data"
+              target: "/home/ubuntu/${PROJECT}/data"
+              read_only: false
         entrypoint: ""
         command: bash
 

@@ -3,16 +3,11 @@ import functools
 import datetime as dt
 
 import sqlalchemy as sa
-from sqlalchemy import MetaData
 import sqlalchemy.dialects.postgresql
 from sqlalchemy.ext.declarative import declarative_base
 
-# https://docs.sqlalchemy.org/en/14/core/type_basics.html
+from fmv1992_database import Base, ColumnNonNull
 
-ColumnNonNull = functools.partial(sa.Column, nullable=False)
-sa.Column = ColumnNonNull
-
-Base = declarative_base(metadata=MetaData(schema="public"))
 
 _hash_xxh_example = "f6f9786af9c448d93fe0ab36821a0b17"
 
@@ -137,8 +132,8 @@ This is the heart of the `fmv1992_backup_system` schema.
     )
 
 
-class Backups(Base):
-    __tablename__ = "backups"
+class Backup(Base):
+    __tablename__ = "backup"
     __table_args__ = {"schema": SCHEMA}
 
     id_ = Reuse.get_id(

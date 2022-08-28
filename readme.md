@@ -1,5 +1,13 @@
 # `fmv1992_database`
 
+## `fmv1992_books_database`
+
+```
+cdp fmv1992_database
+make docker_down
+DOCKER_CMD='python3 ./code/scripts/fmv1992_database/fmv1992_books_database/sync_csvs_and_database.py' make docker_build docker_up docker_run
+```
+
 ???.
 
 *   How do we want to handle symlinks?

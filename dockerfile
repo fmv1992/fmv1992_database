@@ -55,7 +55,7 @@ WORKDIR "${HOME}/${project}"
 COPY --chown=ubuntu:ubuntu ./other/bin $HOME/${project}/other/bin
 COPY --chown=ubuntu:ubuntu ./pyproject.toml $HOME/${project}/pyproject.toml
 
-ENV PYTHONPATH="${PYTHONPATH}:${HOME}/fmv1992_database/code/alembic/alembic_init/model"
+ENV PYTHONPATH="${PYTHONPATH}:${HOME}/fmv1992_database/code/alembic/alembic_init/model:${HOME}/fmv1992_database/code/"
 
 CMD []
 ENTRYPOINT []
