@@ -26,7 +26,7 @@ all: docker_build format test
 	ALEMBIC_TARGET_ID='head' make alembic_upgrade
 	DOCKER_CMD='python3 ./code/scripts/fmv1992_database/fmv1992_books_database/sync_csvs_and_database.py' make docker_run
 
-test: validate_docker_compose
+test: validate_docker_compose test_semantic_python
 
 test_semantic_python:
 	@# `*.tests_are_done` exists to ensure that tests executed ok.
