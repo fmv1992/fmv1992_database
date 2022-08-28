@@ -1,8 +1,8 @@
-"""???
+"""Create the `IdToBlob` table.
 
-Revision ID: 5fb5dbb091a1
+Revision ID: a7f3c0c5854d
 Revises: aaaaaaaaaaaa
-Create Date: 2022-08-23 18:08:12.454227
+Create Date: 2022-08-28 16:55:20.774005
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import datetime
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = "5fb5dbb091a1"
+revision = "a7f3c0c5854d"
 down_revision = "aaaaaaaaaaaa"
 branch_labels = None
 depends_on = None

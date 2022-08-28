@@ -49,9 +49,6 @@ Hash example: `{len(_hash_xxh_example)}` (`fmv1992_database:7ec185b:pyproject.to
         kwargs_default = {
             "name": "timestamp",
             "primary_key": True,
-            "comment": f"""
-Timestamp associated with the backed up file/binary blob.
-""".strip(),
         }
 
         args_final = args_default + args
@@ -140,7 +137,11 @@ class Backup(Base):
         sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
         primary_key=True,
     )
-    datetime_creation = Reuse.get_timestamp()
+    datetime_creation = Reuse.get_timestamp(
+        comment=f"""
+Timestamp associated with the backed up file/binary blob.
+""".strip()
+    )
     path = ColumnNonNull(
         sa.types.String(),
         primary_key=True,
@@ -156,4 +157,8 @@ class AccessRecord(Base):
         sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
         primary_key=True,
     )
-    datetime_access = Reuse.get_timestamp()
+    datetime_access = Reuse.get_timestamp(
+        comment=f"""
+Timestamp at which a binary file was accessed.
+""".strip()
+    )
