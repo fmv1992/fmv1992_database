@@ -90,19 +90,21 @@ Comment associated with the binary.
 """.strip(),
         server_default=sa.text("''"),
     )
-    # ???: `vacuumlo`; see ref below.
-    #
-    # ???: `alembic` does not support large objects`oid`; see <https://www.postgresql.org/docs/14/lo-funcs.html> and <https://stackoverflow.com/a/60569286/5544140>.
-    #
-    # Problem: <https://www.postgresql.org/docs/current/datatype-oid.html>:
-    #
-    # > The oid type is currently implemented as an unsigned four-byte integer.
-    # Therefore, it is not large enough to provide database-wide uniqueness in
-    # large databases, or even in large individual tables.
-    #
-    # # OID: <sqlalchemy.dialects.postgresql.OID>.
+
+    # There used to be a `binary` column here. See
+    # `fmv1992_database:dcc5f38:test/unit_test/fmv1992_database/code/alembic/alembic_init/model/fmv1992_backup_system_database/test___init__.py:20`
+    # for details.
+
+class IdToBlobAuxiliaryTable(Base):
+    """See <???>.
+
+    """
+    id_ = Reuse.get_id()
+
+    ??? CURRENT
+
     binary = ColumnNonNull(
-        sqlalchemy.dialects.postgresql.OID(),
+        sa.types.LargeBinary()
         comment="""
 **On 2022-08-28 I found out that large objects use OIDs, and that [OIDs are limited](https://www.postgresql.org/docs/current/datatype-oid.html):
 

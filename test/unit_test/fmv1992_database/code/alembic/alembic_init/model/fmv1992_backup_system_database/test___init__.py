@@ -26,6 +26,9 @@ class TestIdToBlob(unittest.TestCase):
         integer. Therefore, it is not large enough to provide database-wide
         uniqueness in large databases, or even in large individual tables.
 
+        Due to this we had to move the `binary` column out of `id_to_binary` to
+        an auxiliary table.
+
         """
         column_binary = (
             fmv1992_backup_system_database.IdToBlob.__table__.columns["binary"]
