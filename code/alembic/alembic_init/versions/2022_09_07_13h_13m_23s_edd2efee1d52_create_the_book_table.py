@@ -1,8 +1,8 @@
 """Create the `book` table.
 
-Revision ID: cfaee594661a
+Revision ID: edd2efee1d52
 Revises: aaaaaaaaaaaa
-Create Date: 2022-09-07 13:08:59.450663
+Create Date: 2022-09-07 13:13:23.140021
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import datetime
 
 
 # revision identifiers, used by Alembic.
-revision = "cfaee594661a"
+revision = "edd2efee1d52"
 down_revision = "aaaaaaaaaaaa"
 branch_labels = None
 depends_on = None
