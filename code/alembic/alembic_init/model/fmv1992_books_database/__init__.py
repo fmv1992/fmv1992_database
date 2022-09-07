@@ -17,15 +17,24 @@ class Book(Base):
         sa.types.String(),
         primary_key=True,
         comment="""
+        (non empty)
+
+https://github.com/sqlalchemy/alembic/issues/1085
 """.strip(),
     )
     name = ColumnNonNull(
         sa.types.String(),
         comment="""
+        (non empty)
+
+https://github.com/sqlalchemy/alembic/issues/1085
 """.strip(),
     )
     citation_abbreviation = ColumnNonNull(
         sa.types.String(),
         comment="""
+        (non empty)
+
+https://github.com/sqlalchemy/alembic/issues/1085
 """.strip(),
     )
