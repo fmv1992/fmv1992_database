@@ -39,6 +39,10 @@ format:
 validate_docker_compose:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) config
 
+# Eat your own food:
+git_delete_stale_branches:
+	$(shell get_project_path gnu_make_api)/bin/git_delete_stale_branches $(ROOT_DIR) ./other/git/branches/
+
 # Docker. --- {{{
 
 docker_build:
