@@ -65,6 +65,8 @@ Features:
 
 ## Unreleased
 
+*   Bug report: <https://github.com/sqlalchemy/alembic/issues/1085>.
+
 *   Auto detect different schemas.
 
     Schemas are not getting auto created.

@@ -10,10 +10,12 @@ from alembic import context
 
 
 def include_object(object, name, type_, reflected, compare_to):
+    raise RuntimeError("Not necessary.")
     return True
 
 
 def include_name(name, type_, parent_names):
+    raise RuntimeError("Not necessary.")
     print("-" * 79, file=sys.stderr)
     print(name, file=sys.stderr)
     print("-" * 79, file=sys.stderr)
@@ -74,10 +76,10 @@ def run_migrations_offline() -> None:
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
-        dialect_opts={"paramstyle": "named"},
-        include_schemas=True,
-        include_name=include_name,
-        include_object=include_object,
+        # dialect_opts={"paramstyle": "named"},
+        # include_schemas=True,
+        # include_name=include_name,
+        # include_object=include_object,
     )
 
     with context.begin_transaction():
@@ -101,9 +103,9 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
-            include_schemas=True,
-            include_name=include_name,
-            include_object=include_object,
+            # include_schemas=True,
+            # include_name=include_name,
+            # include_object=include_object,
         )
 
         with context.begin_transaction():
