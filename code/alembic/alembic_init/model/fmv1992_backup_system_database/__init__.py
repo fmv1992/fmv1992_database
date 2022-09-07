@@ -57,6 +57,9 @@ Hash example: `{len(_hash_xxh_example)}` (`fmv1992_database:7ec185b:pyproject.to
         return ColumnNonNull(*args_final, **kwargs_final)
 
 
+ID_TO_BLOB_TABLE_NAME = "id_to_binary"
+
+
 class IdToBlob(Base):
     """UUID to binary blob relation.
 
@@ -71,7 +74,7 @@ class IdToBlob(Base):
 
     """
 
-    __tablename__ = "id_to_binary"
+    __tablename__ = ID_TO_BLOB_TABLE_NAME
     __table_args__ = {"schema": SCHEMA}
 
     id_ = Reuse.get_id()
@@ -95,16 +98,30 @@ Comment associated with the binary.
     # `fmv1992_database:dcc5f38:test/unit_test/fmv1992_database/code/alembic/alembic_init/model/fmv1992_backup_system_database/test___init__.py:20`
     # for details.
 
+
 class IdToBlobAuxiliaryTable(Base):
-    """See <???>.
+    """See <???>."""
 
-    """
-    id_ = Reuse.get_id()
+    __tablename__ = "id_to_blob_auxiliary_table"
+    __table_args__ = {"schema": SCHEMA}
 
-    ??? CURRENT
+    id_ = Reuse.get_id(
+        sa.schema.ForeignKey(
+            f"fmv1992_backup_system.{ID_TO_BLOB_TABLE_NAME}.id"
+        ),
+    )
+    part = ColumnNonNull(
+        sa.types.Integer(),
+        primary_key=True,
+        comment="""
+Part number starting from zero.
+""".strip(),
+    )
+
+    # ??? CURRENT
 
     binary = ColumnNonNull(
-        sa.types.LargeBinary()
+        sa.types.LargeBinary(),
         comment="""
 **On 2022-08-28 I found out that large objects use OIDs, and that [OIDs are limited](https://www.postgresql.org/docs/current/datatype-oid.html):
 
@@ -148,7 +165,9 @@ class Backup(Base):
     __table_args__ = {"schema": SCHEMA}
 
     id_ = Reuse.get_id(
-        sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
+        sa.schema.ForeignKey(
+            f"fmv1992_backup_system.{ID_TO_BLOB_TABLE_NAME}.id"
+        ),
         primary_key=True,
     )
     datetime_creation = Reuse.get_timestamp(
@@ -168,7 +187,9 @@ class AccessRecord(Base):
     __table_args__ = {"schema": SCHEMA}
 
     id_ = Reuse.get_id(
-        sa.schema.ForeignKey("fmv1992_backup_system.id_to_binary.id"),
+        sa.schema.ForeignKey(
+            f"fmv1992_backup_system.{ID_TO_BLOB_TABLE_NAME}.id"
+        ),
         primary_key=True,
     )
     datetime_access = Reuse.get_timestamp(
