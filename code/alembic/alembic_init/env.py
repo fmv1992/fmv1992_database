@@ -10,21 +10,15 @@ from alembic import context
 
 
 def include_object(object, name, type_, reflected, compare_to):
+    # This has to be used.
     # raise RuntimeError("Not necessary.")
     return True
 
 
 def include_name(name, type_, parent_names):
+    # This has to be used.
     # raise RuntimeError("Not necessary.")
-    print("-" * 79, file=sys.stderr)
-    print(name, file=sys.stderr)
-    print("-" * 79, file=sys.stderr)
     return True
-    if type_ == "schema":
-        # note this will not include the default schema
-        return name in ["schema_one", "schema_two"]
-    else:
-        return True
 
 
 # this is the Alembic Config object, which provides
