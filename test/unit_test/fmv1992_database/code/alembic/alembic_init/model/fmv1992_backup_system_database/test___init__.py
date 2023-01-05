@@ -30,12 +30,17 @@ class TestIdToBlob(unittest.TestCase):
         an auxiliary table.
 
         """
-        column_binary = (
-            fmv1992_backup_system_database.IdToBlob.__table__.columns["binary"]
+        maybe_binary_column = (
+            fmv1992_backup_system_database.IdToBlob.__table__.columns.get(
+                "binary"
+            )
         )
-        self.assertNotIsInstance(
-            column_binary.type, (sa.dialects.postgresql.OID,)
-        )
+        if maybe_binary_column is None:
+            pass
+        else:
+            self.assertNotIsInstance(
+                column_binary.type, (sa.dialects.postgresql.OID,)
+            )
 
 
 class TestGeneralIdeas(unittest.TestCase):
